@@ -102,7 +102,6 @@ export default function Signin() {
                 Facebook
               </button>
           </div>
-          
         </div>
       </div>
     </>
