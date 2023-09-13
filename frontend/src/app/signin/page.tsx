@@ -8,7 +8,7 @@ import { useState } from 'react';
 export default function Signin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const handleSignIn = async () => {
@@ -18,9 +18,9 @@ export default function Signin() {
       redirect: false,
     });
 
-    if (result.error) {
+    if (result?.error) {
       setError(result.error);
-    } else if (result.ok) {
+    } else if (result?.ok) {
       router.push('/');
     }
   };
