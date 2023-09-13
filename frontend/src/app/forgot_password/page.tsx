@@ -42,7 +42,7 @@ export default function ForgotPassword() {
           Send Email
         </button>
         <p className="mt-4 text-center text-gray-600 text-sm">
-          Go back <a href="/signup" className="text-green-500 hover:underline">Click Here</a>
+          Go back <a href="/signin" className="text-green-500 hover:underline">Click Here</a>
         </p>
       </div>
     </div>
