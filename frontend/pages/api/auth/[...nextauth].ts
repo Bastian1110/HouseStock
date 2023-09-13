@@ -1,4 +1,5 @@
 import NextAuth from 'next-auth'
+import type { AuthOptions } from 'next-auth';
 import {signInWithEmailAndPassword} from 'firebase/auth';
 import {auth} from "@/app/firebase";
 //providers credentials
@@ -12,9 +13,17 @@ if (!GOOGLE_CLIENT_ID)
 if (!GOOGLE_CLIENT_SECRET)
     throw new Error("Invalid env variable: GOOGLE_CLIENT_SECRET")
 
-export const authOptions = {
+export const authOptions  : AuthOptions = {
     pages: {
         signIn: '/signin'
+    },
+    callbacks: {
+        async redirect({ url, baseUrl }) {
+            if (url.startsWith('/api/auth/callback/google')) {
+                return '/';
+            }
+            return baseUrl;
+        },
     },
     providers: [
         CredentialsProvider({
