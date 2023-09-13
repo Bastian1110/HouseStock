@@ -17,7 +17,7 @@ type HouseData = {
 export function HouseCard(house: HouseData){
 
     return(
-        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <a href="/house" className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <img className="rounded-t-lg" src={house.img} alt={house.title} />
             <div className="p-5">
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{house.title}</h5>
@@ -32,6 +32,6 @@ export function HouseCard(house: HouseData){
                     </div>
                 </span>
             </div>
-        </div>
+        </a> 
     )
 }
