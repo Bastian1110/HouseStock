@@ -61,6 +61,94 @@ class HousePricePredictor(BaseEstimator, RegressorMixin, TransformerMixin):
 
     def preprocess_input(self, X):
         if isinstance(X, dict):
+            expected_columns = [
+                "MSSubClass",
+                "MSZoning",
+                "LotFrontage",
+                "LotArea",
+                "Street",
+                "Alley",
+                "LotShape",
+                "LandContour",
+                "Utilities",
+                "LotConfig",
+                "LandSlope",
+                "Neighborhood",
+                "Condition1",
+                "Condition2",
+                "BldgType",
+                "HouseStyle",
+                "OverallQual",
+                "OverallCond",
+                "YearBuilt",
+                "YearRemodAdd",
+                "RoofStyle",
+                "RoofMatl",
+                "Exterior1st",
+                "Exterior2nd",
+                "MasVnrType",
+                "MasVnrArea",
+                "ExterQual",
+                "ExterCond",
+                "Foundation",
+                "BsmtQual",
+                "BsmtCond",
+                "BsmtExposure",
+                "BsmtFinType1",
+                "BsmtFinSF1",
+                "BsmtFinType2",
+                "BsmtFinSF2",
+                "BsmtUnfSF",
+                "TotalBsmtSF",
+                "Heating",
+                "HeatingQC",
+                "CentralAir",
+                "Electrical",
+                "1stFlrSF",
+                "2ndFlrSF",
+                "LowQualFinSF",
+                "GrLivArea",
+                "BsmtFullBath",
+                "BsmtHalfBath",
+                "FullBath",
+                "HalfBath",
+                "BedroomAbvGr",
+                "KitchenAbvGr",
+                "KitchenQual",
+                "TotRmsAbvGrd",
+                "Functional",
+                "Fireplaces",
+                "FireplaceQu",
+                "GarageType",
+                "GarageYrBlt",
+                "GarageFinish",
+                "GarageCars",
+                "GarageArea",
+                "GarageQual",
+                "GarageCond",
+                "PavedDrive",
+                "WoodDeckSF",
+                "OpenPorchSF",
+                "EnclosedPorch",
+                "3SsnPorch",
+                "ScreenPorch",
+                "PoolArea",
+                "PoolQC",
+                "Fence",
+                "MiscFeature",
+                "MiscVal",
+                "MoSold",
+                "YrSold",
+                "SaleType",
+                "SaleCondition",
+            ]
+
+            # Fill missing keys with a null value
+            for col in expected_columns:
+                if col not in X:
+                    X[col] = None
+
+            # Convert dictionary to DataFrame for further processing
             X = pd.DataFrame([X])
 
         # Ensure X is a DataFrame. If it's a Series (one row), convert to DataFrame
@@ -113,12 +201,17 @@ class HousePricePredictor(BaseEstimator, RegressorMixin, TransformerMixin):
         ]:
             X[col] = X[col].fillna(self.column_modes[col])
 
-        # Fill LotFrontage based on stored neighborhood medians
-        for idx, row in X.iterrows():
-            if pd.isna(row["LotFrontage"]):
-                X.at[idx, "LotFrontage"] = self.neighborhood_medians[
-                    row["Neighborhood"]
-                ]
+        try:
+            # Fill LotFrontage based on stored neighborhood medians
+            for idx, row in X.iterrows():
+                if pd.isna(row["LotFrontage"]):
+                    X.at[idx, "LotFrontage"] = self.neighborhood_medians[
+                        row["Neighborhood"]
+                    ]
+        except:
+            for idx, row in X.iterrows():
+                if pd.isna(row["LotFrontage"]):
+                    X.at[idx, "LotFrontage"] = self.default_median_value
 
         # Drop the Utilities column
         X = X.drop(["Utilities"], axis=1)
@@ -133,16 +226,26 @@ class HousePricePredictor(BaseEstimator, RegressorMixin, TransformerMixin):
 
         for c, encoder in self.encoders.items():
             X[c] = X[c].astype(str)  # Ensuring data is string type for label encoding
-            X[c] = encoder.transform(X[c].values)
+            try:
+                X[c] = encoder.transform(X[c].values)
+            except ValueError:
+                # Handle unknown labels
+                X[c] = [self.column_modes.get(c, "Unknown") for _ in X[c].values]
 
         X["TotalSF"] = X["TotalBsmtSF"] + X["1stFlrSF"] + X["2ndFlrSF"]
 
         for feat in self.skewed_features:
-            if feat in X:
+            if (
+                feat in X and X[feat].dtype.kind in "if"
+            ):  # 'i' is for int, 'f' is for float
+                # Handle NaN values or use a placeholder. Here, I'm filling NaN values with the median
+                X[feat].fillna(X[feat].median(), inplace=True)
                 X[feat] = boxcox1p(X[feat], 0.15)
 
+        # Proceed to one-hot encoding
         X_dummies = pd.get_dummies(X)
 
+        # Check for missing dummy columns and add them if they are missing
         for col in self.dummy_columns:
             if col not in X_dummies:
                 X_dummies[col] = 0
