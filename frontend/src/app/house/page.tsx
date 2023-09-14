@@ -1,6 +1,8 @@
 'use client';
-import React, {useState} from "react";
+import React from "react";
 import NavBar from "@/components/nav-bar/NavBar";
+import { signOut, useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 import { VictoryArea, VictoryChart, VictoryAxis  } from 'victory';
 
 const product = {
@@ -51,10 +53,19 @@ const product = {
     'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
 }
 export default function HousePage() {
+  const session = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect('/signin');
+    },
+  });
 
   const something = (
     <div className="bg-white dark:bg-gray-950 w-full">
-        <NavBar/>
+        <NavBar
+          name={session?.data?.user?.name} 
+          email={session?.data?.user?.email} 
+          image={session.data?.user?.image}/>
       <div className="pt-6">
         <div className="mx-auto px-12 font-medium text-start align-middle">
             <a href="/" className="flex flex-row gap-4">
@@ -67,23 +78,23 @@ export default function HousePage() {
         <div className="mx-auto mt-6 max-w-lg sm:px-6 lg:grid lg:max-w-4xl lg:grid-cols-1 lg:px-8">
             <div className="grid gap-4">
                     <div>
-                        <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/featured/image.jpg" alt=""/>
+                        <img className="h-auto max-w-full rounded-lg" src="https://meyermayhouse.steelcase.com/wp-content/uploads/2022/08/A-87-Ext_Logan1.jpg" alt="house exter"/>
                     </div>
                     <div className="grid grid-cols-5 gap-4">
                         <div>
-                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt=""/>
+                            <img className="h-auto max-w-full rounded-lg" src="https://meyermayhouse.steelcase.com/wp-content/uploads/2022/08/A-87-FOYER1-scaled.jpg" alt="house interior"/>
                         </div>
                         <div>
-                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt=""/>
+                            <img className="h-auto max-w-full rounded-lg" src="https://meyermayhouse.steelcase.com/wp-content/uploads/2022/08/L-86-LIVING-ROOM-BOOKCASE-scaled.jpg" alt="house interior"/>
                         </div>
                         <div>
-                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt=""/>
+                            <img className="h-auto max-w-full rounded-lg" src="https://meyermayhouse.steelcase.com/wp-content/uploads/2022/08/B-86-FOYER-scaled.jpg" alt="house interior"/>
                         </div>
                         <div>
-                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt=""/>
+                            <img className="h-auto max-w-full rounded-lg" src="https://meyermayhouse.steelcase.com/wp-content/uploads/2022/08/A-87-MASTER-BED-scaled.jpg" alt="house interior"/>
                         </div>
                         <div>
-                            <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt=""/>
+                            <img className="h-auto max-w-full rounded-lg" src="https://meyermayhouse.steelcase.com/wp-content/uploads/2022/08/E-87-DINING-TABLE-BUFFET.jpg" alt="house interior"/>
                         </div>
                     </div>
             </div>
@@ -92,8 +103,7 @@ export default function HousePage() {
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">House 1</h1>
-          </div>
-
+        </div>
           {/* Options */}
           <div className="mt-4 lg:row-span-3 lg:mt-0 flex flex-col gap-8">
             <div className="flex flex-col gap-4">
@@ -105,7 +115,6 @@ export default function HousePage() {
                 <p className="text-xl tracking-tight text-gray-900">$200</p>
             </div>
             <button type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Contactar</button>
-
           </div>
 
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
