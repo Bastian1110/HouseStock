@@ -1,58 +1,15 @@
 'use client';
-import React from "react";
+import React, {useState, useEffect} from "react";
 import NavBar from "@/components/nav-bar/NavBar";
-import { signOut, useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
+import Houses from "@/houses.json"
+import { useSession } from 'next-auth/react';
+import { redirect, useSearchParams } from 'next/navigation';
 import { VictoryArea, VictoryChart, VictoryAxis  } from 'victory';
+import { formatCurrency } from "@/utils/formatCurrency";
 
-const product = {
-  name: 'Basic Tee 6-Pack',
-  price: '$192',
-  images: [
-    {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg',
-      alt: 'Two each of gray, white, and black shirts laying flat.',
-    },
-    {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg',
-      alt: 'Model wearing plain black basic tee.',
-    },
-    {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg',
-      alt: 'Model wearing plain gray basic tee.',
-    },
-    {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg',
-      alt: 'Model wearing plain white basic tee.',
-    },
-  ],
-  colors: [
-    { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
-    { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
-    { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
-  ],
-  sizes: [
-    { name: 'XXS', inStock: false },
-    { name: 'XS', inStock: true },
-    { name: 'S', inStock: true },
-    { name: 'M', inStock: true },
-    { name: 'L', inStock: true },
-    { name: 'XL', inStock: true },
-    { name: '2XL', inStock: true },
-    { name: '3XL', inStock: true },
-  ],
-  description:
-    'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
-  highlights: [
-    'Hand cut and sewn locally',
-    'Dyed with our proprietary colors',
-    'Pre-washed & pre-shrunk',
-    'Ultra-soft 100% cotton',
-  ],
-  details:
-    'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
-}
 export default function HousePage() {
+  
+  const searchParams = useSearchParams()
   const session = useSession({
     required: true,
     onUnauthenticated() {
@@ -60,6 +17,10 @@ export default function HousePage() {
     },
   });
 
+    const id = searchParams?.get('id');
+    const house_info = Houses.find((data) => data.id ? data.id.toString() === id : false);
+    console.log(house_info)
+  
   const something = (
     <div className="bg-white dark:bg-gray-950 w-full">
         <NavBar
@@ -74,11 +35,11 @@ export default function HousePage() {
             </svg>
                 Volver</a>
         </div>
-        {/* Image gallery */}
+
         <div className="mx-auto mt-6 max-w-lg sm:px-6 lg:grid lg:max-w-4xl lg:grid-cols-1 lg:px-8">
             <div className="grid gap-4">
                     <div>
-                        <img className="h-auto max-w-full rounded-lg" src="https://meyermayhouse.steelcase.com/wp-content/uploads/2022/08/A-87-Ext_Logan1.jpg" alt="house exter"/>
+                        <img className="h-auto max-w-full rounded-lg" src={house_info?.img[0]} alt="house exter"/>
                     </div>
                     <div className="grid grid-cols-5 gap-4">
                         <div>
@@ -99,31 +60,28 @@ export default function HousePage() {
                     </div>
             </div>
         </div>
-        {/* Product info */}
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">House 1</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{house_info?.Title}</h1>
         </div>
-          {/* Options */}
           <div className="mt-4 lg:row-span-3 lg:mt-0 flex flex-col gap-8">
             <div className="flex flex-col gap-4">
                 <p className="text-2xl tracking-tight text-gray-900 font-semibold">Valor actual</p>
-                <p className="text-xl tracking-tight text-gray-900">{product.price}</p>
+                <p className="text-xl tracking-tight text-gray-900">{formatCurrency(house_info?.Actual_value)}</p>
             </div>
             <div className="flex flex-col gap-4">
                 <p className="text-2xl tracking-tight text-gray-900 font-semibold">Valor futuro</p>
-                <p className="text-xl tracking-tight text-gray-900">$200</p>
+                <p className="text-xl tracking-tight text-gray-900">{formatCurrency(house_info?.Future_value)}</p>
             </div>
             <button type="button" className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Contactar</button>
           </div>
 
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
-            {/* Description and details */}
             <div>
               <h3 className="sr-only">Description</h3>
 
               <div className="space-y-6">
-                <p className="text-base text-gray-900">{product.description}</p>
+                <p className="text-base text-gray-900">{house_info?.Descripcion}</p>
               </div>
             </div>
 
@@ -131,22 +89,18 @@ export default function HousePage() {
               <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
 
               <div className="mt-4">
-                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                  {product.highlights.map((highlight) => (
-                    <li key={highlight} className="text-gray-400">
-                      <span className="text-gray-600">{highlight}</span>
+                {/* <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
+                {
+                Object.entries(house_info?.Detalles).map(([clave, valor]) => (
+                    <li key={clave} className="text-gray-400">
+                      <span className="text-gray-600">Clave: {clave}, Valor: {valor}</span>
                     </li>
                   ))}
-                </ul>
+                </ul> */}
               </div>
             </div>
 
             <div className="mt-10">
-              <h2 className="text-sm font-medium text-gray-900">Details</h2>
-
-              <div className="mt-4 space-y-6">
-                <p className="text-sm text-gray-600">{product.details}</p>
-              </div>
             </div>
             <div className="mt-10 flex flex-col">
                 <h4 className="text-xl font-bold tracking-tight text-gray-900 sm:text-xl">
@@ -189,7 +143,7 @@ export default function HousePage() {
             </div>
           </div>
         </div>
-      </div>  
+      </div>
     </div>
   )
 
