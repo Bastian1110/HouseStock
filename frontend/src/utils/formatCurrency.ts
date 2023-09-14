@@ -10,7 +10,7 @@
  * const formattedAmount = formatCurrency(amount);
  * console.log(formattedAmount); // Output: $1,000.00
  */
-export const formatCurrency = (value: number) => {
+export const formatCurrency = (value: any) => {
     if (typeof value !== 'number') {
         throw new Error('Invalid value. Expected a number.');
     }
