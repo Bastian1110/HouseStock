@@ -20,7 +20,9 @@ export default function NavBar() {
 
   const name = session?.data?.user?.name ?? "Nombre por defecto";
   const email = session?.data?.user?.email ?? "Correo por defecto";
-  const image = session.data?.user?.image ?? "URL_por_defecto_de_la_imagen";
+  const image =
+    session.data?.user?.image ??
+    "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn3.iconfinder.com%2Fdata%2Ficons%2Favatars-9%2F145%2FAvatar_Cat-512.png&f=1&nofb=1&ipt=20baea488c615a35aadc4335d59e29b77c9b1df1f245838e6f4026e090876acd&ipo=images";
   useEffect(() => {
     console.log("isUserMenuOpen:", isUserMenuOpen);
   }, [isUserMenuOpen]);
@@ -161,7 +163,7 @@ export default function NavBar() {
                 href="#"
                 className="text-lg  block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
               >
-                About
+                Tools
               </a>
             </li>
             <li>

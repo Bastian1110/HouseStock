@@ -6,6 +6,7 @@ import Houses from "@/houses.json";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import Footer from "@/components/footer/footer";
+import Hero from "@/components/misc/Hero";
 export default function Home() {
   const session = useSession({
     required: true,
@@ -16,6 +17,7 @@ export default function Home() {
   return (
     <div className="w-full bg-black">
       <NavBar />
+      <Hero />
       <div className="flex flex-wrap justify-center gap-x-10 gap-y-10 my-12">
         {Houses.map((house) => {
           return (
