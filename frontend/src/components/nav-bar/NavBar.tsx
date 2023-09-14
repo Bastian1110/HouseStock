@@ -1,15 +1,22 @@
 "use client"
 import React, { useState, useEffect } from "react";
 
-import ProfileImage from '@/components/images/foto_perfil.jpg'
 
-export default function NavBar() {
+type UserData = {
+  name: string | null | undefined,
+  email: string | null | undefined,
+  image: string | null | undefined,
+}
+export default function NavBar(userData: UserData) {
   const [isUserMenuOpen, setUserMenuOpen] = useState(false);
 
   const toggleUserMenu = () => {
     setUserMenuOpen(!isUserMenuOpen);
   };
 
+  const name = userData.name ?? "Nombre por defecto";
+  const email = userData.email ?? "Correo por defecto";
+  const image = userData.image ?? "URL_por_defecto_de_la_imagen";
   useEffect(() => {
     console.log("isUserMenuOpen:", isUserMenuOpen);
   }, [isUserMenuOpen]);
@@ -25,12 +32,12 @@ export default function NavBar() {
       <div className="flex items-center md:order-2">
           <button onClick={toggleUserMenu} type="button" style= {{position: 'relative'}} aria-expanded={isUserMenuOpen} className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-dropdown" >
             <span className="sr-only">Open user menu</span>
-            <img className="w-8 h-8 rounded-full" src={ProfileImage.src} alt="foto adrian"/>
+            <img className="w-8 h-8 rounded-full" src={image} alt="foto adrian"/>
           </button>
 
           <div className={`z-50 absolute right-0 mt-0 top-0 ${isUserMenuOpen ? 'block' : 'hidden'} text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`} id="user-dropdown"><div className="px-4 py-3">
-              <span className="block text-sm text-gray-900 dark:text-white">Adrian Lopez</span>
-              <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">AdrianBravo@gmail.com</span>
+              <span className="block text-sm text-gray-900 dark:text-white">{name}</span>
+              <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">{email}</span>
             </div>
             <ul className="py-2" aria-labelledby="user-dropdown">
               <li>
