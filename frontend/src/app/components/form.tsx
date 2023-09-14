@@ -393,9 +393,9 @@ const Form:React.FC = () => {
             headers:{
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
+            body: JSON.stringify(
                 cleanFormDataObject
-            })
+            )
         })
         .then((response) =>response.json())
         .then((data) =>{
