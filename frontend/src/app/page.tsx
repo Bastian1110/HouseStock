@@ -1,25 +1,37 @@
-'use client';
-import { signOut, useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
-
+"use client";
+import React from "react";
+import { HouseCard } from "@/components/house-card/houseCard";
+import NavBar from "@/components/nav-bar/NavBar";
+import Houses from "@/houses.json";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
+import Footer from "@/components/footer/footer";
 export default function Home() {
   const session = useSession({
     required: true,
     onUnauthenticated() {
-      redirect('/signin');
+      redirect("/signin");
     },
   });
   return (
-    <div className="p-8">
-      <div>
-      <img src={session?.data?.user?.image || "https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2015/02/Gato-blanco-y-negro.jpg?fit=2048%2C1152&quality=50&strip=all&ssl=1"} alt="" />
+    <div className="w-full bg-black">
+      <NavBar />
+      <div className="flex flex-wrap justify-center gap-x-10 gap-y-10 my-12">
+        {Houses.map((house) => {
+          return (
+            <HouseCard
+              id={house.id}
+              img={house.img}
+              title={house.Title}
+              buy_price={house.Actual_value}
+              future_value={house.Future_value}
+            />
+          );
+        })}
       </div>
-
-      <div className='text-white'>{session?.data?.user?.email }</div>
-      <button type="button" className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" onClick={() => signOut()}>Logout</button>
-      <h1>HOUSE STOCK PAPA</h1>
+      <Footer />
     </div>
-  )
+  );
 }
 
-Home.requireAuth = true
+Home.requireAuth = true;
