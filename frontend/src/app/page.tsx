@@ -1,6 +1,7 @@
 import React from "react"
 import { HouseCard } from "@/components/house-card/houseCard"
 import NavBar from "@/components/nav-bar/NavBar"
+import Footer from "@/components/footer/footer"
 export default function Home() {
 
   const houseData = {
@@ -19,5 +20,10 @@ export default function Home() {
     <div className="flex flex-wrap">
       <HouseCard {...houseData} />
     </div>
+
+    <div>
+      <Footer />
+    </div>
+
   </>  )
 }
