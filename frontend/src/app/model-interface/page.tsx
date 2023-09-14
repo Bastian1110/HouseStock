@@ -1,5 +1,5 @@
-import HouseList from "../components/HouseList"
-import MultiStepForm from "../components/MultiStepForm"
+
+import Form from '../components/form'
 
 export default function modelinterface(){
     const signin = (event: any) => {
@@ -9,7 +9,7 @@ export default function modelinterface(){
 
     return(
         <main  >
-            <MultiStepForm />
+            <Form/>
         </main>
     )
 }
