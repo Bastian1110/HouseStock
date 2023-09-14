@@ -1,25 +1,38 @@
+'use client';
 import React from "react"
 import { HouseCard } from "@/components/house-card/houseCard"
 import NavBar from "@/components/nav-bar/NavBar"
+import Houses from "@/houses.json"
+import { signOut, useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 export default function Home() {
 
-  const houseData = {
-    id: 1,
-    img: "https://www.bhg.com/thmb/H9VV9JNnKl-H1faFXnPlQfNprYw=/1799x0/filters:no_upscale():strip_icc()/white-modern-house-curved-patio-archway-c0a4a3b3-aa51b24d14d0464ea15d36e05aa85ac9.jpg", 
-    title: "House 1",
-    buy_price: 100000,
-    future_value: 200000,
-  } 
+  const session = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect('/signin');
+    },
+  });
   return (
-  <>
-    <div>
-      <NavBar />
+  <div className="w-full">
+      <NavBar 
+      name={session?.data?.user?.name} 
+      email={session?.data?.user?.email} 
+      image={session.data?.user?.image} />
+    <div className="flex flex-wrap w-full justify-center gap-x-10 gap-y-10">
+      {
+        Houses.map((house) => {
+          return(
+              <HouseCard 
+              id={house.id}
+              img={house.img} 
+              title={house.Title} 
+              buy_price={house.Actual_value} 
+              future_value={house.Future_value} />)
+        })
+      }
     </div>
-    
-    <div className="flex flex-wrap">
-      <HouseCard {...houseData} />
-    </div>
-  </>  )
+  </div>  )
 }
 
 Home.requireAuth = true
