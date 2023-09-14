@@ -3,7 +3,7 @@ import { formatCurrency } from '@/utils/formatCurrency';
 import Link from 'next/link';
 type HouseData = {
     id: number,
-    img: string,
+    img: any,
     title: string,
     buy_price: number,
     future_value: number,}
@@ -22,7 +22,7 @@ export function HouseCard(house: HouseData){
             query: { id: house.id },
         }}>
             <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <img className="rounded-t-lg" src={house.img} alt={house.title}/>
+                <img className="rounded-t-lg" src={house.img[0]} alt={house.title}/>
                 <div className="p-5">
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{house.title}</h5>
                     <span className='flex flex-row'>
