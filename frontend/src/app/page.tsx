@@ -3,8 +3,9 @@ import React from "react"
 import { HouseCard } from "@/components/house-card/houseCard"
 import NavBar from "@/components/nav-bar/NavBar"
 import Houses from "@/houses.json"
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
+import Footer from "@/components/footer/footer";
 export default function Home() {
 
   const session = useSession({
@@ -14,12 +15,12 @@ export default function Home() {
     },
   });
   return (
-  <div className="w-full">
+  <div className="w-full dark:bg-gray-950">
       <NavBar 
       name={session?.data?.user?.name} 
       email={session?.data?.user?.email} 
       image={session.data?.user?.image} />
-    <div className="flex flex-wrap w-full justify-center gap-x-10 gap-y-10">
+    <div className="flex flex-wrap justify-center gap-x-10 gap-y-10 my-12">
       {
         Houses.map((house) => {
           return(
@@ -32,6 +33,7 @@ export default function Home() {
         })
       }
     </div>
+    <Footer/>
   </div>  )
 }
 
