@@ -2,84 +2,99 @@
     {
       "id": 1,
       "Title": "Casa del Bosque Encantado",
-      "img": "https://raw.githubusercontent.com/m3llad0/image-bank/main/1.png",
-      "Descripción": "Una casa encantadora enclavada en un frondoso bosque.",
-      "Detalles": {
-        "Habitaciones": 3,
-        "Baños": 2,
-        "Tamaño": "2,000 pies cuadrados",
-        "Garaje": true
-      },
+      "img": ["https://raw.githubusercontent.com/m3llad0/image-bank/main/1.png"],
+      "Descripcion": "Una casa encantadora enclavada en un frondoso bosque.",
+      "Detalles": [{
+        "Garaje": true,
+        "LotFrontage": 65,
+        "LotArea": 8450,
+        "Street": "Pave",
+        "Alley": "NA",
+        "LotShape": "Reg"
+      }],
       "Actual_value": 275000,
       "Future_value": 293250
     },
     {
       "id": 2,
       "Title": "Villa Serenidad",
-      "img": "https://github.com/m3llad0/image-bank/blob/main/2.png?raw=true",
-      "Descripción": "Una elegante villa con vistas panorámicas al océano.",
-      "Detalles": {
-        "Habitaciones": 4,
-        "Baños": 3,
-        "Tamaño": "3,500 pies cuadrados",
-        "Garaje": true
-      },
+      "img": ["https://github.com/m3llad0/image-bank/blob/main/2.png?raw=true"],
+      "Descripcion": "Una elegante villa con vistas panorámicas al océano.",
+      "Detalles": [{
+        "Garaje": true,
+        "LotFrontage": 80,
+        "LotArea": 9600,
+        "Street": "Pave",
+        "Alley": "NA",
+        "LotShape": "Reg"
+      }],
       "Actual_value": 425000,
       "Future_value": 454750
     },
     {
       "id": 3,
       "Title": "Casa de Campo Oasis",
-      "img": "https://github.com/m3llad0/image-bank/blob/main/3.png?raw=true",
-      "Descripción": "Una casa de campo con un hermoso jardín y piscina.",
-      "Detalles": {
-        "Habitaciones": 5,
-        "Baños": 4,
-        "Tamaño": "4,200 pies cuadrados",
-        "Garaje": true
-      },
+      "img": ["https://github.com/m3llad0/image-bank/blob/main/3.png?raw=true"],
+      "Descripcion": "Una casa de campo con un hermoso jardín y piscina.",
+      "Detalles": [{
+        "Garaje": true,
+        "LotFrontage": 60,
+        "LotArea": 11250,
+        "Street": "Pave",
+        "Alley": "NA",
+        "LotShape": "IR1"
+      }],
       "Actual_value": 525000,
       "Future_value": 560250
     },
     {
       "id": 4,
       "Title": "Casa de Playa Coral",
-      "img": "https://github.com/m3llad0/image-bank/blob/main/4.png?raw=true",
-      "Descripción": "Una casa de playa con acceso privado a la arena dorada.",
-      "Detalles": {
-        "Habitaciones": 3,
-        "Baños": 2,
-        "Tamaño": "1,800 pies cuadrados",
-        "Garaje": false
-      },
+      "img": ["https://github.com/m3llad0/image-bank/blob/main/4.png?raw=true"],
+      "Descripcion": "Una casa de playa con acceso privado a la arena dorada.",
+      "Detalles": [{
+        "Garaje": false,
+        "LotFrontage": 84,
+        "LotArea": 14115,
+        "Street": "Pave",
+        "Alley": "NA",
+        "LotShape": "IR1"
+      }],
       "Actual_value": 320000,
       "Future_value": 341600
     },
     {
       "id": 5,
       "Title": "Mansión Bella Vista",
-      "img": "https://github.com/m3llad0/image-bank/blob/main/5.png?raw=true",
-      "Descripción": "Una impresionante mansión con vistas a la ciudad y la montaña.",
-      "Detalles": {
-        "Habitaciones": 6,
-        "Baños": 5,
-        "Tamaño": "6,000 pies cuadrados",
-        "Garaje": true
-      },
+      "img": ["https://github.com/m3llad0/image-bank/blob/main/5.png?raw=true"],
+      "Descripcion": "Una impresionante mansión con vistas a la ciudad y la montaña.",
+      "Detalles": [{
+        "Garaje": true,
+        "LotFrontage": 75,
+        "LotArea": 10084,
+        "Street": "Pave",
+        "Alley": "NA",
+        "LotShape": "Reg"
+      }],
       "Actual_value": 750000,
       "Future_value": 802500
     },
     {
       "id": 6,
       "Title": "Casa del Lago Tranquilo",
-      "img": "https://github.com/m3llad0/image-bank/blob/main/6.png?raw=true",
-      "Descripción": "Una casa junto al lago con muelle privado y canoa.",
-      "Detalles": {
-        "Habitaciones": 4,
-        "Baños": 3,
-        "Tamaño": "2,500 pies cuadrados",
-        "Garaje": true
-      },
+      "img": ["https://github.com/m3llad0/image-bank/blob/main/6.png?raw=true"],
+      "Descripcion": "Una casa junto al lago con muelle privado y canoa.",
+      "Detalles": [{
+        "Habitaciones": 6,
+        "Baños": 5,
+        "Tamaño": "4,500 pies cuadrados",
+        "Garaje": true,
+        "LotFrontage": 70,
+        "LotArea": 12000,
+        "Street": "Pave",
+        "Alley": "NA",
+        "LotShape": "Reg"
+      }],
       "Actual_value": 390000,
       "Future_value": 416700
     }
