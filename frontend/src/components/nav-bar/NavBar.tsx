@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from "react";
+import { signOut } from 'next-auth/react';
 
 
 type UserData = {
@@ -50,7 +51,7 @@ export default function NavBar(userData: UserData) {
                 <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
               </li>
               <li>
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+                <a onClick={() => signOut()} href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
               </li>
             </ul>
           </div>
