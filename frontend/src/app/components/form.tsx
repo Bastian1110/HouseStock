@@ -2,369 +2,191 @@
 import { useState } from "react";
 
 const Form:React.FC = () => {
-    const optionalQuestionsData = {
-        MSSubClass: {
-          desc: "Identifies the type of dwelling involved in the sale.",
-          option1: {
-            value: 20,
-            text: "1-STORY 1946 & NEWER ALL STYLES",
-          },
-          option2: {
-            value: 30,
-            text: "1-STORY 1945 & OLDER",
-          },
-          option3: {
-            value: 40,
-            text: "1-STORY W/FINISHED ATTIC ALL AGES",
-          },
-          option4: {
-            value: 45,
-            text: "1-1/2 STORY - UNFINISHED ALL AGES",
-          },
-          option5: {
-            value: 50,
-            text: "1-1/2 STORY FINISHED ALL AGES",
-          },
-          option6: {
-            value: 60,
-            text: "2-STORY 1946 & NEWER",
-          },
-          option7: {
-            value: 70,
-            text: "2-STORY 1945 & OLDER",
-          },
-          option8: {
-            value: 75,
-            text: "2-1/2 STORY ALL AGES",
-          },
-          option9: {
-            value: 80,
-            text: "SPLIT OR MULTI-LEVEL",
-          },
-          option10: {
-            value: 85,
-            text: "SPLIT FOYER",
-          },
-          option11: {
-            value: 90,
-            text: "DUPLEX - ALL STYLES AND AGES",
-          },
-          option12: {
-            value: 120,
-            text: "1-STORY PUD (Planned Unit Development) - 1946 & NEWER",
-          },
-          option13: {
-            value: 150,
-            text: "1-1/2 STORY PUD - ALL AGES",
-          },
-          option14: {
-            value: 160,
-            text: "2-STORY PUD - 1946 & NEWER",
-          },
-          option15: {
-            value: 180,
-            text: "PUD - MULTILEVEL - INCL SPLIT LEV/FOYER",
-          },
-          option16: {
-            value: 190,
-            text: "2 FAMILY CONVERSION - ALL STYLES AND AGES",
-          },
+    const optionalQuestionsData:any = {
+      MSSubClass: {
+        desc: "Identifies the type of dwelling involved in the sale.",
+        option1: {
+          value: 20,
+          text: "1-STORY 1946 & NEWER ALL STYLES",
         },
-        MSZoning: {
-            desc: "Identifies the general zoning classification of the sale.",
-            option1: { value: "A", text: "Agriculture" },
-            option2: { value: "C", text: "Commercial" },
-            option3: { value: "FV", text: "Floating Village Residential" },
-            option4: { value: "I", text: "Industrial" },
-            option5: { value: "RH", text: "Residential High Density" },
-            option6: { value: "RL", text: "Residential Low Density" },
-            option7: { value: "RP", text: "Residential Low Density Park" },
-            option8: { value: "RM", text: "Residential Medium Density" },
-          },
-          Street: {
-            desc: "Type of road access to property",
-            option1: { value: "Grvl", text: "Gravel" },
-            option2: { value: "Pave", text: "Paved" },
-          },
-          Alley: {
-            desc: "Type of alley access to property",
-            option1: { value: "Grvl", text: "Gravel" },
-            option2: { value: "Pave", text: "Paved" },
-            option3: { value: "NA", text: "No alley access" },
-          },
-          LotShape: {
-            desc: "General shape of property",
-            option1: { value: "Reg", text: "Regular" },
-            option2: { value: "IR1", text: "Slightly irregular" },
-            option3: { value: "IR2", text: "Moderately Irregular" },
-            option4: { value: "IR3", text: "Irregular" },
-          },
-          LandContour: {
-            desc: "Flatness of the property",
-            option1: { value: "Lvl", text: "Near Flat/Level" },
-            option2: { value: "Bnk", text: "Banked - Quick and significant rise from street grade to building" },
-            option3: { value: "HLS", text: "Hillside - Significant slope from side to side" },
-            option4: { value: "Low", text: "Depression" },
-          },
-          Utilities: {
-            desc: "Type of utilities available",
-            option1: { value: "AllPub", text: "All public Utilities (E,G,W,& S)" },
-            option2: { value: "NoSewr", text: "Electricity, Gas, and Water (Septic Tank)" },
-            option3: { value: "NoSeWa", text: "Electricity and Gas Only" },
-            option4: { value: "ELO", text: "Electricity only" },
-          },
-          LotConfig: {
-            desc: "Lot configuration",
-            option1: { value: "Inside", text: "Inside lot" },
-            option2: { value: "Corner", text: "Corner lot" },
-            option3: { value: "CulDSac", text: "Cul-de-sac" },
-            option4: { value: "FR2", text: "Frontage on 2 sides of property" },
-            option5: { value: "FR3", text: "Frontage on 3 sides of property" },
-          },
-          LandSlope: {
-            desc: "Slope of property",
-            option1: { value: "Gtl", text: "Gentle slope" },
-            option2: { value: "Mod", text: "Moderate Slope" },
-            option3: { value: "Sev", text: "Severe Slope" },
-          },
-          Neighborhood: {
-            desc: "Physical locations within Ames city limits",
-            option1: { value: "Blmngtn", text: "Bloomington Heights" },
-            option2: { value: "Blueste", text: "Bluestem" },
-            option3: { value: "BrDale", text: "Briardale" },
-            option4: { value: "BrkSide", text: "Brookside" },
-            option5: { value: "ClearCr", text: "Clear Creek" },
-            option6: { value: "CollgCr", text: "College Creek" },
-            option7: { value: "Crawfor", text: "Crawford" },
-            option8: { value: "Edwards", text: "Edwards" },
-            option9: { value: "Gilbert", text: "Gilbert" },
-            option10: { value: "IDOTRR", text: "Iowa DOT and Rail Road" },
-            option11: { value: "MeadowV", text: "Meadow Village" },
-            option12: { value: "Mitchel", text: "Mitchell" },
-            option13: { value: "Names", text: "North Ames" },
-            option14: { value: "NoRidge", text: "Northridge" },
-            option15: { value: "NPkVill", text: "Northpark Villa" },
-            option16: { value: "NridgHt", text: "Northridge Heights" },
-            option17: { value: "NWAmes", text: "Northwest Ames" },
-            option18: { value: "OldTown", text: "Old Town" },
-            option19: { value: "SWISU", text: "South & West of Iowa State University" },
-            option20: { value: "Sawyer", text: "Sawyer" },
-            option21: { value: "SawyerW", text: "Sawyer West" },
-            option22: { value: "Somerst", text: "Somerset" },
-            option23: { value: "StoneBr", text: "Stone Brook" },
-            option24: { value: "Timber", text: "Timberland" },
-            option25: { value: "Veenker", text: "Veenker" },
-          },
-          Condition1: {
-            desc: "Proximity to various conditions",
-            option1: { value: "Artery", text: "Adjacent to arterial street" },
-            option2: { value: "Feedr", text: "Adjacent to feeder street" },
-            option3: { value: "Norm", text: "Normal" },
-            option4: { value: "RRNn", text: "Within 200' of North-South Railroad" },
-            option5: { value: "RRAn", text: "Adjacent to North-South Railroad" },
-            option6: { value: "PosN", text: "Near positive off-site feature--park, greenbelt, etc." },
-            option7: { value: "PosA", text: "Adjacent to positive off-site feature" },
-            option8: { value: "RRNe", text: "Within 200' of East-West Railroad" },
-            option9: { value: "RRAe", text: "Adjacent to East-West Railroad" },
-          },
-          Condition2: {
-            desc: "Proximity to various conditions (if more than one is present)",
-            option1: { value: "Artery", text: "Adjacent to arterial street" },
-            option2: { value: "Feedr", text: "Adjacent to feeder street" },
-            option3: { value: "Norm", text: "Normal" },
-            option4: { value: "RRNn", text: "Within 200' of North-South Railroad" },
-            option5: { value: "RRAn", text: "Adjacent to North-South Railroad" },
-            option6: { value: "PosN", text: "Near positive off-site feature--park, greenbelt, etc." },
-            option7: { value: "PosA", text: "Adjacent to positive off-site feature" },
-            option8: { value: "RRNe", text: "Within 200' of East-West Railroad" },
-            option9: { value: "RRAe", text: "Adjacent to East-West Railroad" },
-          },
-          BldgType: {
-            desc: "Type of dwelling",
-            option1: { value: "1Fam", text: "Single-family Detached" },
-            option2: { value: "2FmCon", text: "Two-family Conversion; originally built as one-family dwelling" },
-            option3: { value: "Duplx", text: "Duplex" },
-            option4: { value: "TwnhsE", text: "Townhouse End Unit" },
-            option5: { value: "TwnhsI", text: "Townhouse Inside Unit" },
-          },
-          HouseStyle: {
-            desc: "Style of dwelling",
-            option1: { value: "1Story", text: "One story" },
-            option2: { value: "1.5Fin", text: "One and one-half story: 2nd level finished" },
-            option3: { value: "1.5Unf", text: "One and one-half story: 2nd level unfinished" },
-            option4: { value: "2Story", text: "Two story" },
-            option5: { value: "2.5Fin", text: "Two and one-half story: 2nd level finished" },
-            option6: { value: "2.5Unf", text: "Two and one-half story: 2nd level unfinished" },
-            option7: { value: "SFoyer", text: "Split Foyer" },
-            option8: { value: "SLvl", text: "Split Level" },
-          },
-          OverallQual: {
-            desc: "Rates the overall material and finish of the house",
-            option1: { value: 10, text: "Very Excellent" },
-            option2: { value: 9, text: "Excellent" },
-            option3: { value: 8, text: "Very Good" },
-            option4: { value: 7, text: "Good" },
-            option5: { value: 6, text: "Above Average" },
-            option6: { value: 5, text: "Average" },
-            option7: { value: 4, text: "Below Average" },
-            option8: { value: 3, text: "Fair" },
-            option9: { value: 2, text: "Poor" },
-            option10: { value: 1, text: "Very Poor" },
-          },
-          OverallCond: {
-            desc: "Rates the overall condition of the house",
-            option1: { value: 10, text: "Very Excellent" },
-            option2: { value: 9, text: "Excellent" },
-            option3: { value: 8, text: "Very Good" },
-            option4: { value: 7, text: "Good" },
-            option5: { value: 6, text: "Above Average" },
-            option6: { value: 5, text: "Average" },
-            option7: { value: 4, text: "Below Average" },
-            option8: { value: 3, text: "Fair" },
-            option9: { value: 2, text: "Poor" },
-            option10: { value: 1, text: "Very Poor" },
-          },
-          RoofStyle: {
-            desc: "Type of roof",
-            option1: { value: "Flat", text: "Flat" },
-            option2: { value: "Gable", text: "Gable" },
-            option3: { value: "Gambrel", text: "Gabrel (Barn)" },
-            option4: { value: "Hip", text: "Hip" },
-            option5: { value: "Mansard", text: "Mansard" },
-            option6: { value: "Shed", text: "Shed" },
-          },
-          RoofMatl: {
-            desc: "Roof material",
-            option1: { value: "ClyTile", text: "Clay or Tile" },
-            option2: { value: "CompShg", text: "Standard (Composite) Shingle" },
-            option3: { value: "Membran", text: "Membrane" },
-            option4: { value: "Metal", text: "Metal" },
-            option5: { value: "Roll", text: "Roll" },
-            option6: { value: "Tar&Grv", text: "Gravel & Tar" },
-            option7: { value: "WdShake", text: "Wood Shakes" },
-            option8: { value: "WdShngl", text: "Wood Shingles" },
-          },
-          Exterior1st: {
-            desc: "Exterior covering on house",
-            option1: { value: "AsbShng", text: "Asbestos Shingles" },
-            option2: { value: "AsphShn", text: "Asphalt Shingles" },
-            option3: { value: "BrkComm", text: "Brick Common" },
-            option4: { value: "BrkFace", text: "Brick Face" },
-            option5: { value: "CBlock", text: "Cinder Block" },
-            option6: { value: "CemntBd", text: "Cement Board" },
-            option7: { value: "HdBoard", text: "Hard Board" },
-            option8: { value: "ImStucc", text: "Imitation Stucco" },
-            option9: { value: "MetalSd", text: "Metal Siding" },
-            option10: { value: "Other", text: "Other" },
-            option11: { value: "Plywood", text: "Plywood" },
-            option12: { value: "PreCast", text: "PreCast" },
-            option13: { value: "Stone", text: "Stone" },
-            option14: { value: "Stucco", text: "Stucco" },
-            option15: { value: "VinylSd", text: "Vinyl Siding" },
-            option16: { value: "Wd Sdng", text: "Wood Siding" },
-            option17: { value: "WdShing", text: "Wood Shingles" },
-          },
-          Exterior2nd: {
-            desc: "Exterior covering on house (if more than one material)",
-            option1: { value: "AsbShng", text: "Asbestos Shingles" },
-            option2: { value: "AsphShn", text: "Asphalt Shingles" },
-            option3: { value: "BrkComm", text: "Brick Common" },
-            option4: { value: "BrkFace", text: "Brick Face" },
-            option5: { value: "CBlock", text: "Cinder Block" },
-            option6: { value: "CemntBd", text: "Cement Board" },
-            option7: { value: "HdBoard", text: "Hard Board" },
-            option8: { value: "ImStucc", text: "Imitation Stucco" },
-            option9: { value: "MetalSd", text: "Metal Siding" },
-            option10: { value: "Other", text: "Other" },
-            option11: { value: "Plywood", text: "Plywood" },
-            option12: { value: "PreCast", text: "PreCast" },
-            option13: { value: "Stone", text: "Stone" },
-            option14: { value: "Stucco", text: "Stucco" },
-            option15: { value: "VinylSd", text: "Vinyl Siding" },
-            option16: { value: "Wd Sdng", text: "Wood Siding" },
-            option17: { value: "WdShing", text: "Wood Shingles" },
-          },
-          MasVnrType: {
-            desc: "Masonry veneer type",
-            option1: { value: "BrkCmn", text: "Brick Common" },
-            option2: { value: "BrkFace", text: "Brick Face" },
-            option3: { value: "CBlock", text: "Cinder Block" },
-            option4: { value: "None", text: "None" },
-            option5: { value: "Stone", text: "Stone" },
-          },
-          MasVnrArea: { desc: "Masonry veneer area in square feet" },
-          ExterQual: {
-            desc: "Evaluates the quality of the material on the exterior",
-            option1: { value: "Ex", text: "Excellent" },
-            option2: { value: "Gd", text: "Good" },
-            option3: { value: "TA", text: "Average/Typical" },
-            option4: { value: "Fa", text: "Fair" },
-            option5: { value: "Po", text: "Poor" },
-          },
-          ExterCond: {
-            desc: "Evaluates the present condition of the material on the exterior",
-            option1: { value: "Ex", text: "Excellent" },
-            option2: { value: "Gd", text: "Good" },
-            option3: { value: "TA", text: "Average/Typical" },
-            option4: { value: "Fa", text: "Fair" },
-            option5: { value: "Po", text: "Poor" },
-          },
-          Foundation: {
-            desc: "Type of foundation",
-            option1: { value: "BrkTil", text: "Brick & Tile" },
-            option2: { value: "CBlock", text: "Cinder Block" },
-            option3: { value: "PConc", text: "Poured Concrete" },
-            option4: { value: "Slab", text: "Slab" },
-            option5: { value: "Stone", text: "Stone" },
-            option6: { value: "Wood", text: "Wood" },
-          },
-          BsmtQual: {
-            desc: "Evaluates the height of the basement",
-            option1: { value: "Ex", text: "Excellent (100+ inches)" },
-            option2: { value: "Gd", text: "Good (90-99 inches)" },
-            option3: { value: "TA", text: "Typical (80-89 inches)" },
-            option4: { value: "Fa", text: "Fair (70-79 inches)" },
-            option5: { value: "Po", text: "Poor (<70 inches)" },
-            option6: { value: "NA", text: "No Basement" },
-          },
-          BsmtCond: {
-            desc: "Evaluates the general condition of the basement",
-            option1: { value: "Ex", text: "Excellent" },
-            option2: { value: "Gd", text: "Good" },
-            option3: { value: "TA", text: "Typical - slight dampness allowed" },
-            option4: { value: "Fa", text: "Fair - dampness or some cracking or settling" },
-            option5: { value: "Po", text: "Poor - Severe cracking, settling, or wetness" },
-            option6: { value: "NA", text: "No Basement" },
-          },
-          BsmtExposure: {
-            desc: "Refers to walkout or garden level walls",
-            option1: { value: "Gd", text: "Good Exposure" },
-            option2: { value: "Av", text: "Average Exposure (split levels or foyers typically score average or above)" },
-            option3: { value: "Mn", text: "Minimum Exposure" },
-            option4: { value: "No", text: "No Exposure" },
-            option5: { value: "NA", text: "No Basement" },
-          },
-          BsmtFinType1: {
-            desc: "Rating of basement finished area",
-            option1: { value: "GLQ", text: "Good Living Quarters" },
-            option2: { value: "ALQ", text: "Average Living Quarters" },
-            option3: { value: "BLQ", text: "Below Average Living Quarters" },
-            option4: { value: "Rec", text: "Average Rec Room" },
-            option5: { value: "LwQ", text: "Low Quality" },
-            option6: { value: "Unf", text: "Unfinished" },
-            option7: { value: "NA", text: "No Basement" },
-          },
-          BsmtFinType2: {
-            desc: "Rating of basement finished area (if multiple types)",
-            option1: { value: "GLQ", text: "Good Living Quarters" },
-            option2: { value: "ALQ", text: "Average Living Quarters" },
-            option3: { value: "BLQ", text: "Below Average Living Quarters" },
-            option4: { value: "Rec", text: "Average Rec Room" },
-            option5: { value: "LwQ", text: "Low Quality" },
-            option6: { value: "Unf", text: "Unfinished" },
-            option7: { value: "NA", text: "No Basement" },
-          },
-      };
+        option2: {
+          value: 30,
+          text: "1-STORY 1945 & OLDER",
+        },
+        option3: {
+          value: 40,
+          text: "1-STORY W/FINISHED ATTIC ALL AGES",
+        },
+        option4: {
+          value: 45,
+          text: "1-1/2 STORY - UNFINISHED ALL AGES",
+        },
+        option5: {
+          value: 50,
+          text: "1-1/2 STORY FINISHED ALL AGES",
+        },
+        option6: {
+          value: 60,
+          text: "2-STORY 1946 & NEWER",
+        },
+        option7: {
+          value: 70,
+          text: "2-STORY 1945 & OLDER",
+        },
+        option8: {
+          value: 75,
+          text: "2-1/2 STORY ALL AGES",
+        },
+        option9: {
+          value: 80,
+          text: "SPLIT OR MULTI-LEVEL",
+        },
+        option10: {
+          value: 85,
+          text: "SPLIT FOYER",
+        },
+        option11: {
+          value: 90,
+          text: "DUPLEX - ALL STYLES AND AGES",
+        },
+        option12: {
+          value: 120,
+          text: "1-STORY PUD (Planned Unit Development) - 1946 & NEWER",
+        },
+        option13: {
+          value: 150,
+          text: "1-1/2 STORY PUD - ALL AGES",
+        },
+        option14: {
+          value: 160,
+          text: "2-STORY PUD - 1946 & NEWER",
+        },
+        option15: {
+          value: 180,
+          text: "PUD - MULTILEVEL - INCL SPLIT LEV/FOYER",
+        },
+        option16: {
+          value: 190,
+          text: "2 FAMILY CONVERSION - ALL STYLES AND AGES",
+        },
+      },
+      MSZoning: {
+          desc: "Identifies the general zoning classification of the sale.",
+          option1: { value: "A", text: "Agriculture" },
+          option2: { value: "C", text: "Commercial" },
+          option3: { value: "FV", text: "Floating Village Residential" },
+          option4: { value: "I", text: "Industrial" },
+          option5: { value: "RH", text: "Residential High Density" },
+          option6: { value: "RL", text: "Residential Low Density" },
+          option7: { value: "RP", text: "Residential Low Density Park" },
+          option8: { value: "RM", text: "Residential Medium Density" },
+        },
+        Street: {
+          desc: "Type of road access to property",
+          option1: { value: "Grvl", text: "Gravel" },
+          option2: { value: "Pave", text: "Paved" },
+        },
+        Alley: {
+          desc: "Type of alley access to property",
+          option1: { value: "Grvl", text: "Gravel" },
+          option2: { value: "Pave", text: "Paved" },
+          option3: { value: "NA", text: "No alley access" },
+        },
+        LotShape: {
+          desc: "General shape of property",
+          option1: { value: "Reg", text: "Regular" },
+          option2: { value: "IR1", text: "Slightly irregular" },
+          option3: { value: "IR2", text: "Moderately Irregular" },
+          option4: { value: "IR3", text: "Irregular" },
+        },
+        LandContour: {
+          desc: "Flatness of the property",
+          option1: { value: "Lvl", text: "Near Flat/Level" },
+          option2: { value: "Bnk", text: "Banked - Quick and significant rise from street grade to building" },
+          option3: { value: "HLS", text: "Hillside - Significant slope from side to side" },
+          option4: { value: "Low", text: "Depression" },
+        },
+        Utilities: {
+          desc: "Type of utilities available",
+          option1: { value: "AllPub", text: "All public Utilities (E,G,W,& S)" },
+          option2: { value: "NoSewr", text: "Electricity, Gas, and Water (Septic Tank)" },
+          option3: { value: "NoSeWa", text: "Electricity and Gas Only" },
+          option4: { value: "ELO", text: "Electricity only" },
+        },
+        LotConfig: {
+          desc: "Lot configuration",
+          option1: { value: "Inside", text: "Inside lot" },
+          option2: { value: "Corner", text: "Corner lot" },
+          option3: { value: "CulDSac", text: "Cul-de-sac" },
+          option4: { value: "FR2", text: "Frontage on 2 sides of property" },
+          option5: { value: "FR3", text: "Frontage on 3 sides of property" },
+        },
+        LandSlope: {
+          desc: "Slope of property",
+          option1: { value: "Gtl", text: "Gentle slope" },
+          option2: { value: "Mod", text: "Moderate Slope" },
+          option3: { value: "Sev", text: "Severe Slope" },
+        },
+        Condition1: {
+          desc: "Proximity to various conditions",
+          option1: { value: "Artery", text: "Adjacent to arterial street" },
+          option2: { value: "Feedr", text: "Adjacent to feeder street" },
+          option3: { value: "Norm", text: "Normal" },
+          option4: { value: "RRNn", text: "Within 200' of North-South Railroad" },
+          option5: { value: "RRAn", text: "Adjacent to North-South Railroad" },
+          option6: { value: "PosN", text: "Near positive off-site feature--park, greenbelt, etc." },
+          option7: { value: "PosA", text: "Adjacent to positive off-site feature" },
+          option8: { value: "RRNe", text: "Within 200' of East-West Railroad" },
+          option9: { value: "RRAe", text: "Adjacent to East-West Railroad" },
+        },
+        BldgType: {
+          desc: "Type of dwelling",
+          option1: { value: "1Fam", text: "Single-family Detached" },
+          option2: { value: "2FmCon", text: "Two-family Conversion; originally built as one-family dwelling" },
+          option3: { value: "Duplx", text: "Duplex" },
+          option4: { value: "TwnhsE", text: "Townhouse End Unit" },
+          option5: { value: "TwnhsI", text: "Townhouse Inside Unit" },
+        },
+        HouseStyle: {
+          desc: "Style of dwelling",
+          option1: { value: "1Story", text: "One story" },
+          option2: { value: "1.5Fin", text: "One and one-half story: 2nd level finished" },
+          option3: { value: "1.5Unf", text: "One and one-half story: 2nd level unfinished" },
+          option4: { value: "2Story", text: "Two story" },
+          option5: { value: "2.5Fin", text: "Two and one-half story: 2nd level finished" },
+          option6: { value: "2.5Unf", text: "Two and one-half story: 2nd level unfinished" },
+          option7: { value: "SFoyer", text: "Split Foyer" },
+          option8: { value: "SLvl", text: "Split Level" },
+        },
+        OverallQual: {
+          desc: "Overall Material Quality of the House",
+          option1: { value: 10, text: "Very Excellent" },
+          option2: { value: 9, text: "Excellent" },
+          option3: { value: 8, text: "Very Good" },
+          option4: { value: 7, text: "Good" },
+          option5: { value: 6, text: "Above Average" },
+          option6: { value: 5, text: "Average" },
+          option7: { value: 4, text: "Below Average" },
+          option8: { value: 3, text: "Fair" },
+          option9: { value: 2, text: "Poor" },
+          option10: { value: 1, text: "Very Poor" },
+        },
+        OverallCond: {
+          desc: "Overall Condition of the House",
+          option1: { value: 10, text: "Very Excellent" },
+          option2: { value: 9, text: "Excellent" },
+          option3: { value: 8, text: "Very Good" },
+          option4: { value: 7, text: "Good" },
+          option5: { value: 6, text: "Above Average" },
+          option6: { value: 5, text: "Average" },
+          option7: { value: 4, text: "Below Average" },
+          option8: { value: 3, text: "Fair" },
+          option9: { value: 2, text: "Poor" },
+          option10: { value: 1, text: "Very Poor" },
+        },
+    };
+
+
       const[optional,setOptional] = useState(false)
 
     const handleSubmit = (event: any) => {
@@ -408,19 +230,50 @@ const Form:React.FC = () => {
         })
 
       };
+      
 
       const handleOptions = () =>{
         console.log("CAMBIO")
         setOptional(!optional)
       }
-
-    const renderOptional = () =>{
-        return(
+      const renderOptional = () =>{
+        // for (const key in optionalQuestionsData) {
+        //   if (optionalQuestionsData.hasOwnProperty(key)) {
+        //     const value = optionalQuestionsData[key];
+        //     console.log(`Key: ${key}, Value: ${value}`);
+        //   }
+        // }
+        if(optional){
+          return (
             <div>
-
+              <div className="text-center">
+              <h2 className="mb-4 text-xl font-bold">Optional Parameters</h2>
+              <h3 className="mb-4 text-xl font-bold">May help make a better prediction</h3>
             </div>
-        );
-    }
+            <div className="max-w-2xl px-4 py-8 mx-auto lg:py-16 grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
+              {Object.entries(optionalQuestionsData).map(([property, details]) => (
+                <div key={property}>
+                  <label htmlFor={property}>{(details as any).desc}</label>
+                  <select id={property} name={property} className="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    {Object.entries(details as any)
+                      .filter(([key]) => key.startsWith('option'))
+                      .map(([optionKey, option]) => (
+                        <option key={optionKey} value={(option as any).value}>
+                          {(option as any).text}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+              ))}
+            </div>
+            </div>
+          );
+        }
+        
+        }
+
+
+    
       
     const renderQuestions = () =>{
         return(
@@ -618,6 +471,7 @@ const Form:React.FC = () => {
           />
         </div>
       </div>
+      {renderOptional()}
       <div className="flex items-center space-x-4">
 
         <button onClick={handleOptions} type="button">
