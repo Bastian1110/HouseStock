@@ -221,8 +221,6 @@ class HousePricePredictor(BaseEstimator, RegressorMixin, TransformerMixin):
         self.meta_model_ = clone(self.meta_model)
         kfold = KFold(n_splits=self.n_folds, shuffle=True, random_state=156)
 
-        # Train cloned base models then create out-of-fold predictions
-        # that are needed to train the cloned meta-model
         out_of_fold_predictions = np.zeros((X.shape[0], len(self.base_models)))
         for i, model in enumerate(self.base_models):
             for train_index, holdout_index in kfold.split(X, y):
@@ -232,7 +230,6 @@ class HousePricePredictor(BaseEstimator, RegressorMixin, TransformerMixin):
                 y_pred = instance.predict(X[holdout_index])
                 out_of_fold_predictions[holdout_index, i] = y_pred
 
-        # Now train the cloned  meta-model using the out-of-fold predictions as new feature
         self.meta_model_.fit(out_of_fold_predictions, y)
         return self
 
@@ -417,8 +414,6 @@ class HousePricePredictor(BaseEstimator, RegressorMixin, TransformerMixin):
 
         return pd.DataFrame([X_dummies.iloc[0].to_dict()])
 
-    # Do the predictions of all base models on the test data and use the averaged predictions as
-    # meta-features for the final prediction which is done by the meta-model
     def predict(self, X):
         meta_features = np.column_stack(
             [
@@ -456,8 +451,8 @@ cat = CatBoostRegressor(
 
 
 stacked_averaged_models = HousePricePredictor(
-    base_models=(lasso, GBoost, KRR),
-    meta_model=cat,
+    base_models=(cat, GBoost, KRR),
+    meta_model=lasso,
     neighborhood_medians=neighborhood_medians,
     default_median_value=default_median_value,
     column_modes=column_modes,
